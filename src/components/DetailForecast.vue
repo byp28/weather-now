@@ -1,0 +1,14 @@
+<script setup lang="ts">
+import Information from './information.vue';
+
+</script>
+
+<template>
+    <section class="w-full flex justify-between items-center">
+        <Information detail="Feels Like" value="18°"/>
+        <Information detail="Feels Like" value="18°"/>
+        <Information detail="Feels Like" value="18°"/>
+        <Information detail="Feels Like" value="18°"/>
+    </section>
+</template>
+

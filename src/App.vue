@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import DailyForecast from './components/DailyForecast.vue';
+import DetailForecast from './components/DetailForecast.vue';
+import HourlyForecast from './components/HourlyForecast.vue';
 import Today from './components/Today.vue'
 import Header from './layouts/Header.vue';
 </script>
@@ -16,18 +19,13 @@ import Header from './layouts/Header.vue';
       </div>
       <button class="py-3 px-5 rounded-lg bg-[#4657D9] text-white font-semibold">Search</button>
     </div>
-    <section class="px-14 py-2 flex gap-5 justify-between items-start">
-      <div class="w-full flex flex-col gap-4">
+    <section class="px-14 py-2 flex gap-5  justify-between">
+      <div class="w-full flex flex-col gap-6">
         <Today/>
-        <section class="w-full flex justify-between items-center">
-          <div class="bg-[#25253F] w-42 p-2 h-25 rounded-lg">
-
-          </div>
-        </section>
+        <DetailForecast/>
+        <DailyForecast/>
       </div>
-      <div class="w-160 bg-[#25253F] p-5 rounded-lg">
-
-      </div>
+      <HourlyForecast/>
     </section>
   </main>
 </template>
