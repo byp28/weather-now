@@ -1,0 +1,32 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+defineProps()
+
+const place = ref("")
+const hideResponse = ref(false)
+const loading = ref(true)
+
+const isSearching = ()=>{
+    if(place.value !== ""){
+        hideResponse.value = true
+    }else{
+        hideResponse.value = false
+    }
+
+}
+</script>
+
+<template>
+    <div class="w-full flex justify-center items-center gap-4 py-10">
+        <div>
+            <div class="bg-[#25253F] text-white p-3 rounded-lg w-115 flex gap-3 items-center relative">
+                <img src="/assets/images/icon-search.svg" alt="search"/>
+                <input v-model="place" @input="isSearching" placeholder="Search for a place ..."   class="w-full outline-none"/>
+                <div v-if="hideResponse" class="flex w-full bg-[#25253F] rounded-lg  absolute z-7 p-2 top-15 left-0  flex-col gap-1">
+                    <div v-if="loading" class="w-full p-2 flex items-center gap-2 h-10 rounded-lg cursor-pointer hover:bg-[#2F2F49]"><img class="w-3 animate-spin" src="/assets/images/icon-loading.svg" alt="loading"> <span>Search in progress "{{ place }}"</span></div>
+                </div>
+            </div>
+        </div>
+        <button class="py-3 px-5 rounded-lg bg-[#4657D9] text-white font-semibold">Search</button>
+    </div>
+</template>
