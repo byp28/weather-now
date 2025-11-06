@@ -7,7 +7,7 @@ import DayForecast from './DayForecast.vue';
 <template>
     <div class="w-full flex gap-4 flex-col">
         <span class="text-white font-semibold">Daily forecast</span>
-        <div class="w-full flex justify-between">
+        <div class="w-full flex justify-between max-md:flex-wrap max-md:gap-4 max-md:justify-normal ">
             <DayForecast  day="Thu" temperature="10" :minTemperature=14 :maxTemperature=20 />
             <DayForecast  day="Thu" temperature="10" :minTemperature=14 :maxTemperature=20 />
             <DayForecast  day="Thu" temperature="10" :minTemperature=14 :maxTemperature=20 />

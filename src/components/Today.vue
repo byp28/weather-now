@@ -3,8 +3,9 @@
 </script>
 
 <template>
-    <div class="w-full h-72.5  relative">
-        <img src="/assets/images/bg-today-large.svg" class="w-full h-full absolute top-0 left-0 z-1" alt="today">
+    <div class="w-full h-72.5 max-md:h-100 relative">
+        <img src="/assets/images/bg-today-large.svg" class="w-full h-full absolute max-md:hidden top-0 left-0 z-1" alt="today">
+        <img src="/assets/images/bg-today-small.svg" class="w-full h-full absolute hidden max-md:block top-0 left-0 z-1" alt="today">
         <div class="w-full h-full absolute z-2 text-white flex items-center justify-between p-5">
             <div class="flex flex-col gap-3">
                 <span class="text-3xl font-semibold">Berlin, germany</span>

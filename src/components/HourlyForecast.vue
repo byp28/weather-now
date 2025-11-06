@@ -13,7 +13,7 @@ const toggleMenu = ()=>{
 </script>
 
 <template>
-    <div class="w-160 bg-[#25253F] h-full p-5 rounded-lg flex gap-4 flex-col">
+    <div class="w-160 max-md:w-full bg-[#25253F] h-full p-5 rounded-lg flex gap-4 flex-col">
         <div class="w-full flex justify-between items-center">
             <span class="text-white font-semibold">Hourly Forecast</span>
             <span @click.self="toggleMenu" class="flex gap-3 items-center px-3 py-2 bg-[#3C3A5E] rounded-sm relative">

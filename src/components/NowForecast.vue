@@ -7,7 +7,7 @@ import Today from './Today.vue'
 </script>
 
 <template>
-    <section class="px-14 py-2 flex gap-5  justify-between">
+    <section class="px-14 max-md:px-5 py-2 flex gap-5  justify-between max-md:flex-col max-md:justify-start">
         <div class="w-full flex flex-col gap-6">
             <Today/>
             <DetailForecast/>

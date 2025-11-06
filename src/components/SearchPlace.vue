@@ -17,7 +17,7 @@ const isSearching = ()=>{
 </script>
 
 <template>
-    <div class="w-full flex justify-center items-center gap-4 py-10">
+    <div class="w-full flex justify-center max-md:flex-col items-center gap-4 py-10">
         <div>
             <div class="bg-[#25253F] text-white p-3 rounded-lg w-115 flex gap-3 items-center relative">
                 <img src="/assets/images/icon-search.svg" alt="search"/>
@@ -27,6 +27,6 @@ const isSearching = ()=>{
                 </div>
             </div>
         </div>
-        <button class="py-3 px-5 rounded-lg bg-[#4657D9] text-white font-semibold">Search</button>
+        <button class="py-3 px-5 max-md:w-full max-md:max-w-115 rounded-lg bg-[#4657D9] text-white font-semibold">Search</button>
     </div>
 </template>
