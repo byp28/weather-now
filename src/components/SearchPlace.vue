@@ -8,7 +8,6 @@ defineProps<{setLocation : {(location : ILocation):void}}>()
 const place = ref("")
 const hideResponse = ref(false)
 const loading = ref(true)
-const locate : Ref<ILocation> = ref({})
 const AllLocation : Ref<Array<ILocation>> = ref([])
 
 const isSearching = async ()=>{
