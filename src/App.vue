@@ -5,21 +5,44 @@ import SearchPlace from './components/SearchPlace.vue';
 import Header from './layouts/Header.vue';
 import type { ILocation } from './utils/apiGeo';
 import type { Ref } from 'vue'
+import { reverseLocation, type IReverseLocation } from './utils/apiReverseGeo';
 
 
 const myLocation : Ref<ILocation> = ref({})
+const InitialLocation : Ref<ILocation> = ref({})
+const reverseMyLocation : Ref<IReverseLocation> = ref({})
 
-const getMyPosition = ()=>{
-  navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => console.log(position.coords.longitude));
+const getMyPosition = async (): Promise<[number, number]> =>{
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      (position: GeolocationPosition) => {
+        resolve([position.coords.longitude, position.coords.latitude]);
+      },
+      (error) => reject(error)
+    );
+  });
 }
 
 const setMyLocation = (location : ILocation)=>{
     myLocation.value = location;
-    alert(`${myLocation.value.name}, ${myLocation.value.country}`)
+    alert(`${myLocation.value?.name}, ${myLocation.value?.country}`)
 }
 
-onMounted(()=>{
-  getMyPosition()
+onMounted(async ()=>{
+  try {
+    const [longitude, latitude] = await getMyPosition()
+    const findMyLocate = await reverseLocation(latitude.toString(), longitude.toString())
+    reverseMyLocation.value.address = findMyLocate.data.address
+    InitialLocation.value = {
+      name : reverseMyLocation.value.address?.city,
+      country : reverseMyLocation.value.address?.country,
+      latitude : latitude,
+      longitude : longitude
+    }
+    myLocation.value = InitialLocation.value
+  } catch (err) {
+    console.error('Failed to get position or reverse geocode', err)
+  }
 })
 
 </script>
