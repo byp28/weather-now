@@ -6,10 +6,16 @@ import Header from './layouts/Header.vue';
 import type { ILocation } from './utils/apiGeo';
 import type { Ref } from 'vue'
 import { reverseLocation, type IReverseLocation } from './utils/apiReverseGeo';
+import type { TUnit } from './utils/apiMeteo';
 
 
 const myLocation : Ref<ILocation> = ref({})
 const InitialLocation : Ref<ILocation> = ref({})
+const Unit : Ref<TUnit> = ref({
+  speed : "kmh",
+  precipitation : "mm",
+  temparature : "celsius"
+})
 const reverseMyLocation : Ref<IReverseLocation> = ref({})
 
 const getMyPosition = async (): Promise<[number, number]> =>{
@@ -52,7 +58,7 @@ onMounted(async ()=>{
     <Header unit="g" />
     <span class="w-full text-5xl px-2 text-white text-center">How's the sky loocking today?</span>
     <SearchPlace :setLocation="setMyLocation"/>
-    <NowForecast/>
+    <NowForecast :unit = "Unit" :location="myLocation"/>
   </main>
 </template>
 
