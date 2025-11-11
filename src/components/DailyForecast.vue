@@ -7,7 +7,12 @@ import DayForecast from './DayForecast.vue';
 import { type Ref, ref, watchEffect } from 'vue';
 
 const props = defineProps<{location : ILocation, unit : TUnit}>()
-const dailyForecastRef : Ref<TDailyForcast> = ref({})
+const dailyForecastRef : Ref<TDailyForcast> = ref({
+    temperature_2m_min : [],
+    temperature_2m_max : []
+})
+
+
 
 watchEffect(async()=>{
     if(props.location.latitude){
@@ -22,8 +27,8 @@ watchEffect(async()=>{
     <div class="w-full flex gap-4 flex-col">
         <span class="text-white font-semibold">Daily forecast</span>
         <div class="w-full flex justify-between max-md:flex-wrap max-md:gap-4 max-md:justify-normal ">
-            
-            <DayForecast v-for="(day, index) in dailyForecastRef.time" :day="day" :minTemperature=dailyForecastRef.temperature_2m_min?[index]  :maxTemperature="dailyForecastRef.temperature_2m_min?[index]"/>
+
+            <DayForecast v-for="(day, index) in dailyForecastRef.time" :day="day" :minTemperature="dailyForecastRef.temperature_2m_min[index] as number" :maxTemperature="dailyForecastRef.temperature_2m_max[index] as number" />
         </div>
     </div>
 </template>

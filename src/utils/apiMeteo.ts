@@ -21,8 +21,8 @@ export type TForcast = {
 
 export type TDailyForcast = {
   time?: Array<string>;
-  temperature_2m_max?: Array<number>;
-  temperature_2m_min?: Array<number>;
+  temperature_2m_max: Array<number>;
+  temperature_2m_min: Array<number>;
   rain_sum?: Array<number>;
   showers_sum?: Array<number>;
   snowfall_sum?: Array<number>;
