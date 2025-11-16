@@ -28,6 +28,12 @@ export type TDailyForcast = {
   snowfall_sum?: Array<number>;
 };
 
+export type THorlyForcast = {
+  time?: Array<string>;
+  temperature_2m: Array<number>;
+  precipitation: Array<number>;
+};
+
 const api = axios.create({
   baseURL: `https://api.open-meteo.com/v1`,
   headers: {
@@ -45,4 +51,9 @@ export const nowForcastData = (lat: number, long: number, unit: TUnit) =>
 export const dailyForcastData = (lat: number, long: number, unit: TUnit) =>
   api.get(
     `/forecast?latitude=${lat}&longitude=${long}&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,rain_sum,showers_sum,snowfall_sum,precipitation_sum,precipitation_hours,precipitation_probability_max,weather_code&timezone=auto&wind_speed_unit=${unit.speed}&temperature_unit=${unit.temparature}&precipitation_unit=${unit.precipitation}`
+  );
+
+export const horlyForcastData = (lat: number, long: number, unit: TUnit) =>
+  api.get(
+    `/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m,precipitation&timezone=auto&wind_speed_unit=${unit.speed}&temperature_unit=${unit.temparature}&precipitation_unit=${unit.precipitation}`
   );

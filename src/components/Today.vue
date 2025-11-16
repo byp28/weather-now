@@ -2,8 +2,15 @@
 import type { ILocation } from '../utils/apiGeo';
 
 
-defineProps<{location : ILocation, date : string, temp?: number, loading : boolean}>()
+const props = defineProps<{location : ILocation, date : string, temp?: number, loading : boolean}>()
 
+const dateConvert = new Date(props.date)
+const options: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+    year: "numeric",
+    day: "numeric", 
+    month: "short",
+};
 </script>
 
 <template>
@@ -13,11 +20,11 @@ defineProps<{location : ILocation, date : string, temp?: number, loading : boole
         <div v-if="!loading" class="w-full h-full absolute z-2 text-white flex items-center justify-between p-5">
             <div class="flex flex-col gap-3">
                 <span class="text-3xl font-semibold">{{location.name}}, {{ location.country }}</span>
-                <span class="text-xl">{{date}}</span>
+                <span class="text-xl">{{dateConvert.toLocaleDateString("en-EN", options)}}</span>
             </div>
             <div class="flex items-center justify-center gap-1">
                 <img class="w-35" src="/assets/images/icon-sunny.webp" alt="sunny">
-                <span class="text-7xl font-semibold">{{temp}}°</span>
+                <span class="text-7xl font-semibold">{{Math.round(temp as number)}}°</span>
             </div>
         </div>
     </div>

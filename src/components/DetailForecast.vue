@@ -8,10 +8,10 @@ defineProps<{temperature? : number, precipitation? : number, humidity? : number,
 
 <template>
     <section class="w-full flex justify-between max-md:flex-wrap max-md:justify-between max-md:gap-8 items-center">
-        <Information detail="Feels Like" :value="`${temperature}°`"/>
-        <Information detail="Humidity" :value="`${humidity}%`"/>
-        <Information detail="Wind" :value="`${wind} ${unit.speed}`"/>
-        <Information detail="Precipitation" :value="`${precipitation} ${unit.precipitation}`"/>
+        <Information detail="Feels Like" :value="temperature as number" unit="°"/>
+        <Information detail="Humidity" :value="humidity as number" unit="%"/>
+        <Information detail="Wind" :value="wind as number" :unit="unit.speed"/>
+        <Information detail="Precipitation" :value="precipitation as number" :unit="unit.precipitation"/>
     </section>
 </template>
 
