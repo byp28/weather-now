@@ -26,6 +26,11 @@ const isSearching = async ()=>{
 
 }
 
+const hide = (newLocation: string)=>{
+    place.value = newLocation
+    hideResponse.value = false
+}
+
 
 </script>
 
@@ -37,7 +42,7 @@ const isSearching = async ()=>{
                 <input v-model="place" @input="isSearching" placeholder="Search for a place ..."   class="w-full outline-none"/>
                 <div v-if="hideResponse" class="flex w-full bg-[#25253F] rounded-lg  absolute z-7 p-2 top-15 left-0  flex-col gap-1">
                     <div v-if="loading" class="w-full p-2 flex items-center gap-2 h-10 rounded-lg cursor-pointer hover:bg-[#2F2F49]"><img class="w-3 animate-spin" src="/assets/images/icon-loading.svg" alt="loading"> <span>Search in progress "{{ place }}"</span></div>
-                    <div v-for="location in AllLocation" @click="setLocation(location)"  class="w-full p-2 flex items-center gap-2 h-10 rounded-lg cursor-pointer hover:bg-[#2F2F49]"><span>{{ location.name }}, {{ location.country }}</span></div>
+                    <div v-for="location in AllLocation" @click="setLocation(location)" @click.self="hide(`${location.name} , ${location.country}`)"  class="w-full p-2 flex items-center gap-2 h-10 rounded-lg cursor-pointer hover:bg-[#2F2F49]"><span>{{ location.name }}, {{ location.country }}</span></div>
                 </div>
             </div>
         </div>

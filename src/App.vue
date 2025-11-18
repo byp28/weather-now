@@ -25,9 +25,9 @@ const Unit : Ref<TUnit> = ref({
     this.temparature = newValue
   },
   swicthToImperial(){
-    this.speed = "kmh"
-    this.precipitation = "mm"
-    this.temparature = "celsius"
+    this.speed = "mph"
+    this.precipitation = "inch"
+    this.temparature = "fahrenheit"
   },
   swicthToMetric(){
     this.speed = "kmh"
@@ -52,7 +52,6 @@ const getMyPosition = async (): Promise<[number, number]> =>{
 
 const setMyLocation = (location : ILocation)=>{
     myLocation.value = location;
-    alert(`${myLocation.value?.name}, ${myLocation.value?.country}`)
 }
 
 onMounted(async ()=>{
@@ -75,9 +74,9 @@ onMounted(async ()=>{
 </script>
 
 <template>
-  <main class="bg-[#02012b] flex flex-col gap-5 min-h-screen">
+  <main class="bg-[#02012b] dm flex flex-col gap-5 min-h-screen">
     <Header :unit="Unit" />
-    <span class="w-full text-5xl px-2 text-white text-center">How's the sky loocking today?</span>
+    <span class="w-full text-5xl px-2 text-white text-center bricolage">How's the sky loocking today?</span>
     <SearchPlace :setLocation="setMyLocation"/>
     <NowForecast :unit = "Unit" :location="myLocation"/>
   </main>
