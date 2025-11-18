@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Submenu from '../components/Header/Submenu.vue';
+import type { TUnit } from '../utils/apiMeteo';
 
 
 
-defineProps<{ unit: string }>()
+defineProps<{ unit: TUnit }>()
 
 const hiddenSubmenu = ref(false)
 //const loading = ref(true)
@@ -23,7 +24,7 @@ const toggleMenu = ()=>{
         <span class="text-white font-semibold">Units</span>
         <img src="/assets/images/icon-dropdown.svg" alt="dropdown">
         <div  v-if="hiddenSubmenu" class="absolute z-50 right-0 -bottom-104">
-            <Submenu/>
+            <Submenu :unit="unit"/>
         </div>
     </span>
 </header>  

@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import type { TUnit } from '../../utils/apiMeteo';
 
+
+defineProps<{unit : TUnit}>()
 
 </script>
 
@@ -7,7 +10,7 @@
     <section class="w-50 text-white bg-[#25253F] rounded-sm p-2 flex flex-col gap-2 items-center">
         <span class="w-full p-2 text-sm font-semibold cursor-pointer rounded-sm  hover:bg-[#2F2F49] hover:border-white ">Switch to Imperial</span>
         <span class="w-full px-2 text-xs font-semibold text-[#818296]">Temperature</span>
-        <span class="w-full flex items-center justify-between p-2 text-sm font-semibold cursor-pointer  rounded-sm  hover:bg-[#2F2F49] hover:border-white ">Celsius (°C) <img src="/assets/images/icon-checkmark.svg" alt="check"/></span>
+        <span @click="unit.setTemperature('celsius')" class="w-full flex items-center justify-between p-2 text-sm font-semibold cursor-pointer  rounded-sm  hover:bg-[#2F2F49] hover:border-white ">Celsius (°C) <img src="/assets/images/icon-checkmark.svg" alt="check"/></span>
         <span class="w-full flex items-center justify-between p-2 text-sm font-semibold cursor-pointer  rounded-sm  hover:bg-[#2F2F49] hover:border-white ">fahrenheit (°F) <img src="/assets/images/icon-checkmark.svg" alt="check"/></span>
         <span class="w-full px-2 border-b-1 border-b-[#464655]"></span>
         <span class="w-full px-2 text-xs font-semibold text-[#818296]">Wind Speed</span>

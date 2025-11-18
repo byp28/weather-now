@@ -1,10 +1,15 @@
 import axios from "axios";
 
-export type TUnit = {
+export interface TUnit {
   temparature: string;
   speed: string;
   precipitation: string;
-};
+  setSpeed(newValue: string): void;
+  setPrecipitation(newValue: string): void;
+  setTemperature(newValue: string): void;
+  swicthToImperial(): void;
+  swicthToMetric(): void;
+}
 
 export type TForcast = {
   time?: string;

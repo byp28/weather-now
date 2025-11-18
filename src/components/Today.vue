@@ -4,13 +4,17 @@ import type { ILocation } from '../utils/apiGeo';
 
 const props = defineProps<{location : ILocation, date : string, temp?: number, loading : boolean}>()
 
-const dateConvert = new Date(props.date)
-const options: Intl.DateTimeFormatOptions = {
-    weekday: "long",
-    year: "numeric",
-    day: "numeric", 
-    month: "short",
-};
+const convertDate = (date : string)=>{
+    const dateConvert = new Date(date)
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+        year: "numeric",
+        day: "numeric", 
+        month: "short",
+    };
+    return dateConvert.toLocaleDateString("en-EN", options)
+}
+
 </script>
 
 <template>
@@ -20,7 +24,7 @@ const options: Intl.DateTimeFormatOptions = {
         <div v-if="!loading" class="w-full h-full absolute z-2 text-white flex items-center justify-between p-5">
             <div class="flex flex-col gap-3">
                 <span class="text-3xl font-semibold">{{location.name}}, {{ location.country }}</span>
-                <span class="text-xl">{{dateConvert.toLocaleDateString("en-EN", options)}}</span>
+                <span class="text-xl">{{ convertDate(date) }}</span>
             </div>
             <div class="flex items-center justify-center gap-1">
                 <img class="w-35" src="/assets/images/icon-sunny.webp" alt="sunny">

@@ -24,8 +24,24 @@ const AllDay : Ref<DayParse> = ref({
         }
     ]
 })
+const AllDate = ref([""])
+const selectDay = ref(0)
 const hiddenSubmenu = ref(false)
 //const loading = ref(true)
+
+
+const setSelectDay = (newDay : number)=>{
+    selectDay.value = newDay
+}
+
+const convertDay = (date:string)=>{
+    const dayConvert = new Date(date)
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+    };
+
+    return dayConvert.toLocaleDateString("en-EN", options)
+}
 
 watchEffect(async()=>{
     if(props.location.latitude){
@@ -45,9 +61,11 @@ watchEffect(async()=>{
                             precipitation : []
                         }
                     )
+                    AllDate.value.push("")
                 }
                 let temp = horlyForecastRef.value.temperature_2m[i]
                 let preci = horlyForecastRef.value.precipitation[i]
+                AllDate.value[dayCount] = dTime
                 AllDay.value.day[dayCount]?.time?.push(dTime)
                 
                 AllDay.value.day[dayCount]?.temperature_2m?.push(temp as number)
@@ -72,21 +90,15 @@ const toggleMenu = ()=>{
         <div class="w-full flex justify-between items-center">
             <span class="text-white font-semibold">Hourly Forecast</span>
             <span @click.self="toggleMenu" class="flex gap-3 items-center px-3 py-2 bg-[#3C3A5E] rounded-sm relative">
-                <span class="text-white font-semibold">Monday</span>
+                <span class="text-white font-semibold">{{ convertDay(AllDate[selectDay] as string) }}</span>
                 <img src="/assets/images/icon-dropdown.svg" alt="dropdown">
                 <div  v-if="hiddenSubmenu" class="absolute right-0 -bottom-80 ">
-                    <DaysMenu/>
+                    <DaysMenu :allDay="AllDate" :setDay="setSelectDay"  />
                 </div>
             </span>
         </div>
         <section class="w-full flex flex-col gap-4">
-            <HourForecast hour="1" temperature="21"/>
-            <HourForecast hour="1" temperature="21"/>
-            <HourForecast hour="1" temperature="21"/>
-            <HourForecast hour="1" temperature="21"/>
-            <HourForecast hour="1" temperature="21"/>
-            <HourForecast hour="1" temperature="21"/>
-            <HourForecast hour="1" temperature="21"/>
+            <HourForecast v-for="(day, index) in AllDay.day[selectDay]?.time" :hour="day" :temperature="AllDay.day[selectDay]?.temperature_2m[index] as number" />
         </section>
     </div>
 </template>
