@@ -9,7 +9,8 @@ import { type Ref, ref, watchEffect } from 'vue';
 const props = defineProps<{location : ILocation, unit : TUnit}>()
 const dailyForecastRef : Ref<TDailyForcast> = ref({
     temperature_2m_min : [],
-    temperature_2m_max : []
+    temperature_2m_max : [],
+    weather_code : []
 })
 
 
@@ -28,7 +29,12 @@ watchEffect(async()=>{
         <span class="text-white font-semibold">Daily forecast</span>
         <div class="w-full flex justify-between max-md:flex-wrap max-md:gap-4 max-md:justify-normal ">
 
-            <DayForecast v-for="(day, index) in dailyForecastRef.time" :day="day" :minTemperature="dailyForecastRef.temperature_2m_min[index] as number" :maxTemperature="dailyForecastRef.temperature_2m_max[index] as number" />
+            <DayForecast v-for="(day, index) in dailyForecastRef.time" 
+            :day="day" 
+            :code="dailyForecastRef.weather_code[index] as number" 
+            :minTemperature="dailyForecastRef.temperature_2m_min[index] as number" 
+            :maxTemperature="dailyForecastRef.temperature_2m_max[index] as number" 
+            />
         </div>
     </div>
 </template>

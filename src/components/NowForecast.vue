@@ -27,7 +27,7 @@ watchEffect(async()=>{
 <template>
     <section class="px-14 max-md:px-5 py-2 flex gap-5  justify-between max-md:flex-col max-md:justify-start">
         <div class="w-full flex flex-col gap-6">
-            <Today :loading = "loading" :location="location" :date="nowForecastRef.time as string" :temp="nowForecastRef.temperature_2m as number" />
+            <Today :code="nowForecastRef.weather_code as number" :loading = "loading" :location="location" :date="nowForecastRef.time as string" :temp="nowForecastRef.temperature_2m as number" />
             <DetailForecast :humidity="nowForecastRef.relative_humidity_2m" :wind="nowForecastRef.wind_speed_10m" :precipitation="nowForecastRef.precipitation" :temperature="nowForecastRef.apparent_temperature" :unit="unit" />
             <DailyForecast :location="location" :unit="unit" />
         </div>

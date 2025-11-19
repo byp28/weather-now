@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { ILocation } from '../utils/apiGeo';
+import { findIcon } from '../utils/apiMeteo';
 
 
-const props = defineProps<{location : ILocation, date : string, temp?: number, loading : boolean}>()
+const props = defineProps<{location : ILocation, date : string, temp?: number, loading : boolean, code : number}>()
 
 const convertDate = (date : string)=>{
     const dateConvert = new Date(date)
@@ -27,7 +28,7 @@ const convertDate = (date : string)=>{
                 <span class="text-xl">{{ convertDate(date) }}</span>
             </div>
             <div class="flex items-center justify-center gap-1">
-                <img class="w-35" src="/assets/images/icon-sunny.webp" alt="sunny">
+                <img class="w-35" :src="`/assets/images/${findIcon(code)}`" :alt="`weather_code_${code}`">
                 <span class="text-7xl font-semibold">{{Math.round(temp as number)}}°</span>
             </div>
         </div>

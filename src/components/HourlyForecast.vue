@@ -13,14 +13,14 @@ const props = defineProps<{location : ILocation, unit : TUnit}>()
 const horlyForecastRef : Ref<THorlyForcast> = ref({
     time : [],
     temperature_2m : [],
-    precipitation : []
+    weather_code : []
 })
 const AllDay : Ref<DayParse> = ref({
     day : [
         {
             time : [],
             temperature_2m : [],
-            precipitation : []
+            weather_code : []
         }
     ]
 })
@@ -36,7 +36,7 @@ const reset =()=>{
             {
                 time : [],
                 temperature_2m : [],
-                precipitation : []
+                weather_code : []
             }
         ]
     }
@@ -71,21 +71,20 @@ watchEffect(async()=>{
                         {
                             time : [],
                             temperature_2m : [],
-                            precipitation : []
+                            weather_code : []
                         }
                     )
                     AllDate.value.push("")
                 }
                 let temp = horlyForecastRef.value.temperature_2m[i]
-                let preci = horlyForecastRef.value.precipitation[i]
+                let preci = horlyForecastRef.value.weather_code[i]
                 AllDate.value[dayCount] = dTime
                 AllDay.value.day[dayCount]?.time?.push(dTime)
                 
                 AllDay.value.day[dayCount]?.temperature_2m?.push(temp as number)
-                AllDay.value.day[dayCount]?.precipitation?.push(preci as number)
+                AllDay.value.day[dayCount]?.weather_code?.push(preci as number)
                 count+=1
             })
-            console.log(AllDay.value.day)
         }
         
         
@@ -111,7 +110,12 @@ const toggleMenu = ()=>{
             </span>
         </div>
         <section class="w-full flex flex-col gap-4 overflow-y-auto">
-            <HourForecast v-for="(day, index) in AllDay.day[selectDay]?.time" :hour="day" :temperature="AllDay.day[selectDay]?.temperature_2m[index] as number" />
+            <HourForecast 
+            v-for="(day, index) in AllDay.day[selectDay]?.time" 
+            :hour="day" 
+            :code="AllDay.day[selectDay]?.weather_code[index] as number"
+            :temperature="AllDay.day[selectDay]?.temperature_2m[index] as number" 
+            />
         </section>
     </div>
 </template>
