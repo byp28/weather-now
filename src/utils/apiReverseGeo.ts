@@ -16,6 +16,17 @@ const api = axios.create({
   timeout: 70000,
 });
 
+export const checkApiAccessReverseGeo = async () => {
+  try {
+    const check = await api.get(
+      "/reverse?format=json&lat=1&lon=1&addressdetails=2"
+    );
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const reverseLocation = (latitude: string, longitude: string) =>
   api.get(
     `/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=2`

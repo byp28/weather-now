@@ -3,7 +3,7 @@ import type { ILocation } from '../utils/apiGeo';
 import { findIcon } from '../utils/apiMeteo';
 
 
-const props = defineProps<{location : ILocation, date : string, temp?: number, loading : boolean, code : number}>()
+defineProps<{location : ILocation, date : string, temp?: number, loading : boolean, code : number}>()
 
 const convertDate = (date : string)=>{
     const dateConvert = new Date(date)

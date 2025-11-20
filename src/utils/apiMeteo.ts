@@ -73,6 +73,17 @@ const api = axios.create({
   timeout: 70000,
 });
 
+export const checkApiAccessMeteo = async () => {
+  try {
+    const check = await api.get(
+      "/forecast?latitude=1&longitude=1&hourly=temperature_2m"
+    );
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const nowForcastData = (lat: number, long: number, unit: TUnit) =>
   api.get(
     `/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation&wind_speed_unit=${unit.speed}&temperature_unit=${unit.temparature}&precipitation_unit=${unit.precipitation}`

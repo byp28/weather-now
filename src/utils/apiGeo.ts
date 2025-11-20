@@ -18,5 +18,14 @@ const api = axios.create({
   timeout: 70000,
 });
 
+export const checkApiAccessGeo = async () => {
+  try {
+    const check = await api.get("/search?name=test&count=5");
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const findLocation = (name: string) =>
   api.get(`/search?name=${name}&count=5`);
