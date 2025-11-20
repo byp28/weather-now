@@ -21,6 +21,9 @@ const api = axios.create({
 export const checkApiAccessGeo = async () => {
   try {
     const check = await api.get("/search?name=test&count=5");
+    if (!check) {
+      console.log("error");
+    }
     return true;
   } catch (error) {
     return false;

@@ -21,6 +21,9 @@ export const checkApiAccessReverseGeo = async () => {
     const check = await api.get(
       "/reverse?format=json&lat=1&lon=1&addressdetails=2"
     );
+    if (!check) {
+      console.log("error");
+    }
     return true;
   } catch (error) {
     return false;

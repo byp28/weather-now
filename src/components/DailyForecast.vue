@@ -29,7 +29,7 @@ watchEffect(async()=>{
     <div class="w-full flex gap-4 flex-col">
         <span class="text-white font-semibold">Daily forecast</span>
         <div class="w-full flex justify-between max-md:flex-wrap max-md:gap-4 max-md:justify-normal ">
-            <EmptyCard v-if="loading" v-for="n in 7"/>
+            <EmptyCard v-if="loading" v-for="n in 7" :id="n"/>
             <DayForecast v-if="!loading" v-for="(day, index) in dailyForecastRef.time" 
             :day="day" 
             :code="dailyForecastRef.weather_code[index] as number" 

@@ -119,7 +119,7 @@ const toggleMenu = ()=>{
             :code="AllDay.day[selectDay]?.weather_code[index] as number"
             :temperature="AllDay.day[selectDay]?.temperature_2m[index] as number" 
             />
-            <EmptyList v-if="loading" v-for="n in 11" /> 
+            <EmptyList v-if="loading" v-for="n in 11" :id="n" /> 
         </section>
     </div>
 </template>

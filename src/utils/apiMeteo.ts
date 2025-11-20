@@ -78,6 +78,9 @@ export const checkApiAccessMeteo = async () => {
     const check = await api.get(
       "/forecast?latitude=1&longitude=1&hourly=temperature_2m"
     );
+    if (!check) {
+      console.log("error");
+    }
     return true;
   } catch (error) {
     return false;
