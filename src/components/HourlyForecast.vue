@@ -4,12 +4,13 @@ import DaysMenu from './HorlyForecast/DaysMenu.vue';
 import HourForecast from './HourForecast.vue';
 import type { ILocation } from '../utils/apiGeo';
 import { horlyForcastData, type THorlyForcast, type TUnit } from '../utils/apiMeteo';
+import EmptyList from './EmptyList.vue';
 
 type DayParse = {
     day : Array<THorlyForcast>
 }
 
-const props = defineProps<{location : ILocation, unit : TUnit}>()
+const props = defineProps<{location : ILocation, unit : TUnit, loading : boolean}>()
 const horlyForecastRef : Ref<THorlyForcast> = ref({
     time : [],
     temperature_2m : [],
@@ -57,7 +58,7 @@ const convertDay = (date:string)=>{
 
 watchEffect(async()=>{
     reset()
-    if(props.location.latitude){
+    if(props.location.latitude && !props.loading){
         const forescast = await horlyForcastData(props.location.latitude as number,props.location.longitude as number, props.unit)
         horlyForecastRef.value = forescast.data.hourly
         let count = 0;
@@ -102,20 +103,23 @@ const toggleMenu = ()=>{
         <div class="w-full flex justify-between items-center">
             <span class="text-white font-semibold">Hourly Forecast</span>
             <span @click.self="toggleMenu" class="flex gap-3 items-center cursor-pointer px-3 py-2 bg-[#3C3A5E] rounded-sm relative">
-                <span @click.self="toggleMenu" class="text-white font-semibold">{{ convertDay(AllDate[selectDay] as string) }}</span>
+                <span v-if="!loading" @click.self="toggleMenu" class="text-white font-semibold">{{ convertDay(AllDate[selectDay] as string) }}</span>
+                <span v-if="loading" class="text-white font-semibold">-</span>
                 <img @click.self="toggleMenu" src="/assets/images/icon-dropdown.svg" alt="dropdown">
                 <div  v-if="hiddenSubmenu" class="absolute right-0 -bottom-80 ">
-                    <DaysMenu :toggleMenu="toggleMenu" :allDay="AllDate" :setDay="setSelectDay"  />
+                    <DaysMenu :loading="loading" :toggleMenu="toggleMenu" :allDay="AllDate" :setDay="setSelectDay"  />
                 </div>
             </span>
         </div>
         <section class="w-full flex flex-col gap-4 overflow-y-auto">
             <HourForecast 
+            v-if="!loading"
             v-for="(day, index) in AllDay.day[selectDay]?.time" 
             :hour="day" 
             :code="AllDay.day[selectDay]?.weather_code[index] as number"
             :temperature="AllDay.day[selectDay]?.temperature_2m[index] as number" 
             />
+            <EmptyList v-if="loading" v-for="n in 11" /> 
         </section>
     </div>
 </template>

@@ -11,6 +11,7 @@ import { type TUnit } from './utils/apiMeteo';
 
 const myLocation : Ref<ILocation> = ref({})
 const InitialLocation : Ref<ILocation> = ref({})
+const loading  = ref(true)
 const Unit : Ref<TUnit> = ref({
   speed : "kmh",
   precipitation : "mm",
@@ -66,6 +67,7 @@ onMounted(async ()=>{
       longitude : longitude
     }
     myLocation.value = InitialLocation.value
+    loading.value=false;
   } catch (err) {
     console.error('Failed to get position or reverse geocode', err)
   }
@@ -78,7 +80,7 @@ onMounted(async ()=>{
     <Header :unit="Unit" />
     <span class="w-full text-5xl px-2 text-white text-center bricolage">How's the sky loocking today?</span>
     <SearchPlace :setLocation="setMyLocation"/>
-    <NowForecast :unit = "Unit" :location="myLocation"/>
+    <NowForecast :loadingPosition="loading" :unit = "Unit" :location="myLocation"/>
   </main>
 </template>
 

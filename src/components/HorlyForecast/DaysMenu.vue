@@ -2,7 +2,7 @@
 
 
 
-defineProps<{allDay : Array<string>, setDay : {(index : number):void}, toggleMenu : {():void}}>()
+defineProps<{allDay : Array<string>, setDay : {(index : number):void}, toggleMenu : {():void}, loading : boolean}>()
 
 const convertDay = (date:string)=>{
     const dayConvert = new Date(date)
@@ -16,7 +16,7 @@ const convertDay = (date:string)=>{
 </script>
 
 <template>
-    <section class="w-40 text-white border-1 border-[#2F2F49] bg-[#25253F] rounded-sm p-1 flex flex-col gap-2 items-center">
+    <section v-if="!loading" class="w-40 text-white border-1 border-[#2F2F49] bg-[#25253F] rounded-sm p-1 flex flex-col gap-2 items-center">
         <span @click.self="toggleMenu" @click="setDay(index)" v-for="(day, index) in allDay" class="w-full p-2 text-sm font-semibold cursor-pointer rounded-sm  hover:bg-[#2F2F49] hover:border-white ">{{ convertDay(day) }}</span>
 
     </section>

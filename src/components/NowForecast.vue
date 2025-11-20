@@ -7,15 +7,14 @@ import DetailForecast from './DetailForecast.vue';
 import HourlyForecast from './HourlyForecast.vue';
 import Today from './Today.vue'
 
-const props = defineProps<{location : ILocation, unit : TUnit}>()
+const props = defineProps<{location : ILocation, unit : TUnit, loadingPosition : boolean}>()
 const loading = ref(true)
 const nowForecastRef : Ref<TForcast> = ref({})
 
 watchEffect(async()=>{
-    if(props.location.latitude){
+    if(props.location.latitude && !props.loadingPosition){
         const forescast = await nowForcastData(props.location.latitude as number,props.location.longitude as number, props.unit)
         nowForecastRef.value = forescast.data.current
-        console.log(nowForecastRef.value.time)
         loading.value = false
     }
 })
@@ -25,13 +24,13 @@ watchEffect(async()=>{
 </script>
 
 <template>
-    <section class="px-14 max-md:px-5 py-2 flex gap-5  justify-between max-md:flex-col max-md:justify-start">
+    <section class="px-14 max-md:px-5 py-2 flex gap-5  justify-between max-lg:flex-col max-lg:justify-start max-lg:items-center">
         <div class="w-full flex flex-col gap-6">
             <Today :code="nowForecastRef.weather_code as number" :loading = "loading" :location="location" :date="nowForecastRef.time as string" :temp="nowForecastRef.temperature_2m as number" />
-            <DetailForecast :humidity="nowForecastRef.relative_humidity_2m" :wind="nowForecastRef.wind_speed_10m" :precipitation="nowForecastRef.precipitation" :temperature="nowForecastRef.apparent_temperature" :unit="unit" />
-            <DailyForecast :location="location" :unit="unit" />
+            <DetailForecast :loading = "loading" :humidity="nowForecastRef.relative_humidity_2m" :wind="nowForecastRef.wind_speed_10m" :precipitation="nowForecastRef.precipitation" :temperature="nowForecastRef.apparent_temperature" :unit="unit" />
+            <DailyForecast :loading = "loading" :location="location" :unit="unit" />
         </div>
-        <HourlyForecast :location="location" :unit="unit"/>
+        <HourlyForecast :loading="loading" :location="location" :unit="unit"/>
     </section>
 </template>
 

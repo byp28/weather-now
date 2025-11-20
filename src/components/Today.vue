@@ -19,9 +19,13 @@ const convertDate = (date : string)=>{
 </script>
 
 <template>
-    <div class="w-full h-72.5 max-md:h-100 relative">
-        <img src="/assets/images/bg-today-large.svg" class="w-full h-full absolute max-md:hidden top-0 left-0 z-1" alt="today">
-        <img src="/assets/images/bg-today-small.svg" class="w-full h-full absolute hidden max-md:block top-0 left-0 z-1" alt="today">
+    <div class="w-full h-72.5 max-xl:h-75 max-md:h-100 relative">
+        <div v-if="loading" class="w-full h-full absolute top-0 left-0 z-1 rounded-lg bg-[#25253F] flex justify-center flex-col gap-3 items-center">
+            <img src="/assets/images/icon-loading.svg" class=" animate-spin" alt="loading">
+            <span class="text-xl text-white">Loading...</span>
+        </div>
+        <img v-if="!loading" src="/assets/images/bg-today-large.svg" class="w-full h-full absolute max-md:hidden top-0 left-0 z-1" alt="today">
+        <img v-if="!loading" src="/assets/images/bg-today-small.svg" class="w-full h-full absolute hidden max-md:block top-0 left-0 z-1" alt="today">
         <div v-if="!loading" class="w-full h-full absolute z-2 text-white flex items-center justify-between p-5">
             <div class="flex flex-col gap-3">
                 <span class="text-3xl font-semibold">{{location.name}}, {{ location.country }}</span>
